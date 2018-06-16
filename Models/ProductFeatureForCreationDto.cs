@@ -9,7 +9,7 @@ namespace product_viewer.Models {
     public class ProductFeatureForCreationDto {
 
         //Using data annotations
-        [Required]
+        [Required(ErrorMessage="You need to provide a name")]
         [MaxLength(50)]
         public string Name { get; set; }
 

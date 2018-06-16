@@ -42,7 +42,12 @@ namespace product_viewer.Controllers {
         public IActionResult CreateProductFeature(int productId, [FromBody] ProductFeatureForCreationDto productFeature) {
             if(null == productFeature) return BadRequest();
 
-            if(!ModelState.IsValid) return BadRequest();
+            //Description and name can not be the same (for some reason)
+            if(productFeature.Name == productFeature.Description) {
+                ModelState.AddModelError("Description", "The description must be different to name");
+            }
+
+            if(!ModelState.IsValid) return BadRequest(ModelState);
 
             var product = ProductsDataStore.Current.Products.FirstOrDefault(p => p.Id == productId);
 
