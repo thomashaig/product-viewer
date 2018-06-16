@@ -11,7 +11,7 @@ namespace product_viewer.Services {
 
         private ILogger<LocalMailService> _logger;
 
-        private string _MailTo = "test@example.com";
+        private string _MailTo = "nosend@example.com";
         private string _MailFrom = "noreply@example.com";
 
         public LocalMailService(ILogger<LocalMailService> logger) {
@@ -19,7 +19,7 @@ namespace product_viewer.Services {
         }
 
         public void Send(string subject, string message) {
-            _logger.LogInformation("Sending Mail");
+            _logger.LogInformation($"Sending Mail to {_MailTo}");
         }
     }
 }
