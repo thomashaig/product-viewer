@@ -5,10 +5,18 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using product_viewer.Models;
 using Microsoft.AspNetCore.JsonPatch;
+using Microsoft.Extensions.Logging;
 
 namespace product_viewer.Controllers {
     [Route("api/products")]
     public class ProductFeaturesController : Controller {
+
+        private ILogger<ProductFeaturesController> _logger;
+
+        public ProductFeaturesController(ILogger<ProductFeaturesController> logger) {
+            _logger = logger;
+        }
+
         [HttpGet("{productId}/productFeatures")]
         public IActionResult GetProductFeatures(int productId) {
              // Find Parent Product
