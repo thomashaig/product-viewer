@@ -6,15 +6,18 @@ using Microsoft.AspNetCore.Mvc;
 using product_viewer.Models;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.Extensions.Logging;
+using product_viewer.Services;
 
 namespace product_viewer.Controllers {
     [Route("api/products")]
     public class ProductFeaturesController : Controller {
 
         private ILogger<ProductFeaturesController> _logger;
+        private LocalMailService _mailService;
 
-        public ProductFeaturesController(ILogger<ProductFeaturesController> logger) {
+        public ProductFeaturesController(ILogger<ProductFeaturesController> logger, LocalMailService mailService) {
             _logger = logger;
+            _mailService = mailService;
         }
 
         [HttpGet("{productId}/productFeatures")]
@@ -172,6 +175,8 @@ namespace product_viewer.Controllers {
             }
 
             product.ProductFeatures.Remove(productFeatureToDelete);
+
+            _mailService.Send("Deleted", "It was deleted");
 
             return NoContent();
         }
