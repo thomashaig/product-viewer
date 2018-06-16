@@ -140,5 +140,24 @@ namespace product_viewer.Controllers {
 
             return NoContent();
         }
+
+        [HttpDelete("{productId}/productFeatures/{id}")]
+        public IActionResult DeleteProductFeature(int productId, int id) {
+            var product = ProductsDataStore.Current.Products.FirstOrDefault(p => p.Id == productId);
+
+            if(null == product) {
+                return NotFound();
+            }
+
+            var productFeatureToDelete = product.ProductFeatures.FirstOrDefault(f => f.Id == id);
+
+            if(null == productFeatureToDelete) {
+                return NotFound();
+            }
+
+            product.ProductFeatures.Remove(productFeatureToDelete);
+
+            return NoContent();
+        }
     }
 }
