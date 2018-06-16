@@ -125,6 +125,14 @@ namespace product_viewer.Controllers {
 
             if(!ModelState.IsValid) return BadRequest(ModelState);
 
+            //This could not be done using the patch document
+            if(productFeaturePatch.Name == productFeaturePatch.Description) {
+                ModelState.AddModelError("Description", "The description must be different to name");
+            }
+
+            //This has to be run after the patch document was validated and attempted
+            TryValidateModel(productFeaturePatch);
+
             productFeatureToPatch.Name = productFeaturePatch.Name;
             productFeatureToPatch.Description = productFeaturePatch.Description;
 
