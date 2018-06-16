@@ -39,8 +39,10 @@ namespace product_viewer.Controllers {
         }
 
         [HttpPost("{productId}/productFeatures")]
-        public IActionResult CreateProductFeature(int productId, [FromBody] ProductFeatureDto productFeature) {
+        public IActionResult CreateProductFeature(int productId, [FromBody] ProductFeatureForCreationDto productFeature) {
             if(null == productFeature) return BadRequest();
+
+            if(!ModelState.IsValid) return BadRequest();
 
             var product = ProductsDataStore.Current.Products.FirstOrDefault(p => p.Id == productId);
 
