@@ -15,8 +15,35 @@ namespace product_viewer {
             //dummy data
 
             Products = new List<ProductDto>() {
-                new ProductDto() { Id=1, Name="Product 1", Description="Our first and best product" },
-                new ProductDto { Id=2, Name="Product 2", Description="The second fiddle" }
+                new ProductDto() { 
+                    Id=1, 
+                    Name="Product 1", 
+                    Description="Our first and best product", 
+                    ProductFeatures = new List<ProductFeatureDto>() {
+                        new ProductFeatureDto() {
+                            Id = 1,
+                            Name = "Goes boing",
+                            Description = "Makes an annoying sound"
+                        },
+                        new ProductFeatureDto() {
+                            Id = 2,
+                            Name = "Goes bang",
+                            Description = "Another, but less annoying sound"
+                        }
+                    }
+                },
+                new ProductDto { 
+                    Id=2, 
+                    Name="Product 2", 
+                    Description="The second fiddle",
+                    ProductFeatures = new List<ProductFeatureDto>() {
+                        new ProductFeatureDto() {
+                            Id = 1,
+                            Name = "Fiddle",
+                            Description = "Actually can be used as a fiddle"
+                        }
+                    }
+                }
             };
         }
     }

@@ -11,5 +11,14 @@ namespace product_viewer.Models {
         public string Name { get; set; }
 
         public string Description { get; set; }
+
+        public int NumberOfFeatures { get
+            {
+                return ProductFeatures.Count;
+            }
+        }
+
+        //Uses new auto initialiser
+        public ICollection<ProductFeatureDto> ProductFeatures { get; set; } = new List<ProductFeatureDto>();
     }
 } 
