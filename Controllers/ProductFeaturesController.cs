@@ -133,6 +133,8 @@ namespace product_viewer.Controllers {
             //This has to be run after the patch document was validated and attempted
             TryValidateModel(productFeaturePatch);
 
+            if(!ModelState.IsValid) return BadRequest(ModelState);
+
             productFeatureToPatch.Name = productFeaturePatch.Name;
             productFeatureToPatch.Description = productFeaturePatch.Description;
 
