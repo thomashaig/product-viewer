@@ -8,13 +8,21 @@ namespace product_viewer.Controllers {
     [Route("api/products")]
     public class ProductsController : Controller {
         [HttpGet()]
-        public JsonResult GetProducts() {
-            return new JsonResult(ProductsDataStore.Current.Products);
+        public IActionResult GetProducts() {
+            return Ok(ProductsDataStore.Current.Products);
         }
 
         [HttpGet("{id}")]
-        public JsonResult GetProduct(int id) {
-            return new JsonResult(ProductsDataStore.Current.Products.FirstOrDefault(p => p.Id == id));
+        public IActionResult GetProduct(int id) {
+
+            // Find Product
+            var product = ProductsDataStore.Current.Products.FirstOrDefault(p => p.Id == id);
+
+            if(null == product) {
+                return NotFound();
+            }
+
+            return Ok(product);
         }
     }
 }
