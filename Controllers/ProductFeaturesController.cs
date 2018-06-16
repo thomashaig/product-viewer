@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using product_viewer.Models;
+using Microsoft.AspNetCore.JsonPatch;
 
 namespace product_viewer.Controllers {
     [Route("api/products")]
@@ -95,6 +96,37 @@ namespace product_viewer.Controllers {
 
             productFeatureToPut.Name = productFeature.Name;
             productFeatureToPut.Description = productFeature.Description;
+
+            return NoContent();
+        }
+
+        [HttpPatch("{productId}/productFeatures/{id}")]
+        public IActionResult PartialUpdateProductFeature(int productId, int id, [FromBody] JsonPatchDocument<ProductFeatureForUpdateDto> patchDoc) {
+            if(null == patchDoc) return BadRequest();
+
+            var product = ProductsDataStore.Current.Products.FirstOrDefault(p => p.Id == productId);
+
+            if(null == product) {
+                return NotFound();
+            }
+
+            var productFeatureToPatch = product.ProductFeatures.FirstOrDefault(f => f.Id == id);
+
+            if(null == productFeatureToPatch) {
+                return NotFound();
+            }
+
+            var productFeaturePatch = new ProductFeatureForUpdateDto() {
+                Name = productFeatureToPatch.Name,
+                Description = productFeatureToPatch.Description
+            };
+
+            patchDoc.ApplyTo(productFeaturePatch, ModelState);
+
+            if(!ModelState.IsValid) return BadRequest(ModelState);
+
+            productFeatureToPatch.Name = productFeaturePatch.Name;
+            productFeatureToPatch.Description = productFeaturePatch.Description;
 
             return NoContent();
         }
