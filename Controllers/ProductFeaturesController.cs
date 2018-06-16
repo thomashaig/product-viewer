@@ -13,7 +13,7 @@ namespace product_viewer.Controllers {
     public class ProductFeaturesController : Controller {
 
         private ILogger<ProductFeaturesController> _logger;
-        private LocalMailService _mailService;
+        private IMailService _mailService;
 
         public ProductFeaturesController(ILogger<ProductFeaturesController> logger, LocalMailService mailService) {
             _logger = logger;

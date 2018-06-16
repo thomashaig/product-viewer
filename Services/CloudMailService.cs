@@ -7,19 +7,19 @@ using System.Diagnostics;
 using Microsoft.Extensions.Logging;
 
 namespace product_viewer.Services {
-    public class LocalMailService : IMailService {
+    public class CloudMailService : IMailService {
 
-        private ILogger<LocalMailService> _logger;
+        private ILogger<CloudMailService> _logger;
 
         private string _MailTo = "test@example.com";
         private string _MailFrom = "noreply@example.com";
 
-        public LocalMailService(ILogger<LocalMailService> logger) {
+        public CloudMailService(ILogger<CloudMailService> logger) {
             _logger = logger;
         }
 
         public void Send(string subject, string message) {
-            _logger.LogInformation("Sending Mail");
+            _logger.LogInformation("Sending Mail In The Cloud");
         }
     }
 }
