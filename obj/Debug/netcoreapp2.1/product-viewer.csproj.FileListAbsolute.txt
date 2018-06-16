@@ -1,0 +1,11 @@
+C:\Users\Thomas\Desktop\Stuff\Products\product-viewer\bin\Debug\netcoreapp2.1\product-viewer.deps.json
+C:\Users\Thomas\Desktop\Stuff\Products\product-viewer\bin\Debug\netcoreapp2.1\product-viewer.runtimeconfig.json
+C:\Users\Thomas\Desktop\Stuff\Products\product-viewer\bin\Debug\netcoreapp2.1\product-viewer.runtimeconfig.dev.json
+C:\Users\Thomas\Desktop\Stuff\Products\product-viewer\bin\Debug\netcoreapp2.1\product-viewer.dll
+C:\Users\Thomas\Desktop\Stuff\Products\product-viewer\bin\Debug\netcoreapp2.1\product-viewer.pdb
+C:\Users\Thomas\Desktop\Stuff\Products\product-viewer\obj\Debug\netcoreapp2.1\product-viewer.csprojAssemblyReference.cache
+C:\Users\Thomas\Desktop\Stuff\Products\product-viewer\obj\Debug\netcoreapp2.1\product-viewer.csproj.CoreCompileInputs.cache
+C:\Users\Thomas\Desktop\Stuff\Products\product-viewer\obj\Debug\netcoreapp2.1\product-viewer.AssemblyInfoInputs.cache
+C:\Users\Thomas\Desktop\Stuff\Products\product-viewer\obj\Debug\netcoreapp2.1\product-viewer.AssemblyInfo.cs
+C:\Users\Thomas\Desktop\Stuff\Products\product-viewer\obj\Debug\netcoreapp2.1\product-viewer.dll
+C:\Users\Thomas\Desktop\Stuff\Products\product-viewer\obj\Debug\netcoreapp2.1\product-viewer.pdb
