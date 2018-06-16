@@ -69,5 +69,34 @@ namespace product_viewer.Controllers {
             //Note the returned productId is the same as the one that was passed in
             return CreatedAtRoute("GetProductFeature", new { productid = productId, id = newProductFeature.Id}, newProductFeature);
         }
+
+        [HttpPut("{productId}/productFeatures/{id}")]
+        public IActionResult UpdateProductFeature(int productId, int id, [FromBody] ProductFeatureForUpdateDto productFeature) {
+            if(null == productFeature) return BadRequest();
+
+            //Description and name can not be the same (for some reason)
+            if(productFeature.Name == productFeature.Description) {
+                ModelState.AddModelError("Description", "The description must be different to name");
+            }
+
+            if(!ModelState.IsValid) return BadRequest(ModelState);
+
+            var product = ProductsDataStore.Current.Products.FirstOrDefault(p => p.Id == productId);
+
+            if(null == product) {
+                return NotFound();
+            }
+
+            var productFeatureToPut = product.ProductFeatures.FirstOrDefault(f => f.Id == id);
+
+            if(null == productFeature) {
+                return NotFound();
+            }
+
+            productFeatureToPut.Name = productFeature.Name;
+            productFeatureToPut.Description = productFeature.Description;
+
+            return NoContent();
+        }
     }
 }
