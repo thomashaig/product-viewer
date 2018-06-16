@@ -19,14 +19,22 @@ namespace product_viewer.Controllers {
 
         [HttpGet("{productId}/productFeatures")]
         public IActionResult GetProductFeatures(int productId) {
-             // Find Parent Product
-            var product = ProductsDataStore.Current.Products.FirstOrDefault(p => p.Id == productId);
+            try {
+                // Find Parent Product
+                var product = ProductsDataStore.Current.Products.FirstOrDefault(p => p.Id == productId);
 
-            if(null == product) {
-                return NotFound();
+                if(null == product) {
+                    //Uses interpolation
+                    _logger.LogInformation($"The product with ID {productId} was not found");
+                    return NotFound();
+                }
+
+                return Ok(product.ProductFeatures);
             }
-
-            return Ok(product.ProductFeatures);
+            catch(Exception) {
+                _logger.LogCritical($"Exception while getting features for {productId}");
+                return StatusCode(500, "Error occured while handling request");
+            }
         }
 
         [HttpGet("{productId}/productFeatures/{id}", Name = "GetProductFeature")]
