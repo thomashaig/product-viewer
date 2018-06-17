@@ -7,6 +7,7 @@ using product_viewer.Models;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.Extensions.Logging;
 using product_viewer.Services;
+using AutoMapper;
 
 namespace product_viewer.Controllers {
     [Route("api/products")]
@@ -31,16 +32,7 @@ namespace product_viewer.Controllers {
 
                 var productFeatures = _productInfoRepository.GetProductFeatures(productId);
 
-                var productFeaturesResult = new List<ProductFeatureDto>();
-                
-                foreach(var feature in productFeatures)
-                {
-                    productFeaturesResult.Add(new ProductFeatureDto() {
-                        Id = feature.Id,
-                        Name = feature.Name,
-                        Description = feature.Description
-                    }); 
-                }
+                var productFeaturesResult = Mapper.Map<IEnumerable<ProductFeatureDto>>(productFeatures);
 
                 return Ok(productFeaturesResult);
             }
@@ -64,11 +56,7 @@ namespace product_viewer.Controllers {
                     return NotFound();
                 }
 
-                return Ok(new ProductFeatureDto() {
-                        Id = feature.Id,
-                        Name = feature.Name,
-                        Description = feature.Description
-                    }); 
+                return Ok(Mapper.Map<ProductFeatureDto>(feature)); 
         }
 
         [HttpPost("{productId}/productFeatures")]

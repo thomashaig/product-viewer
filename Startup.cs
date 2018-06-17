@@ -81,6 +81,7 @@ namespace product_viewer
             AutoMapper.Mapper.Initialize(cfg => {
                 cfg.CreateMap<Entities.Product, Models.ProductNoFeaturesDto>();
                 cfg.CreateMap<Entities.Product, Models.ProductDto>();
+                cfg.CreateMap<Entities.ProductFeature, Models.ProductFeatureDto>();
             });
 
             app.UseMvc(routes =>
