@@ -48,7 +48,7 @@ namespace product_viewer
                 services.AddTransient<IMailService, CloudMailService>();
             #endif
 
-            var connectionString = @"Server=(localdb)\mysqllocaldb;Database=ProductInfoDB;Trusted_Connection=True;";
+            var connectionString = @"Server=localhost\SQLEXPRESS01;Database=ProductInfoDb;Trusted_Connection=True;";
             services.AddDbContext<ProductInfoContext>(o => o.UseSqlServer(connectionString));
         }
 

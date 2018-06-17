@@ -11,7 +11,7 @@ namespace product_viewer.Controllers {
 
         public DummyController(ProductInfoContext ctx) {
             _ctx = ctx;
-        }
+        } 
 
         [HttpGet]
         [Route("api/testdatabase")]
