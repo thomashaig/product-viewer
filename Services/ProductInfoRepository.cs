@@ -17,6 +17,10 @@ namespace product_viewer.Services {
             _context = context;
         }
 
+        public bool ProductExists(int productId) {
+            return _context.Products.Any(p => p.Id == productId);
+        }
+
         public IEnumerable<Product> GetProducts() {
             return _context.Products.OrderBy(p => p.Name).ToList();
         }

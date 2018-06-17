@@ -14,24 +14,35 @@ namespace product_viewer.Controllers {
 
         private ILogger<ProductFeaturesController> _logger;
         private IMailService _mailService;
+        private IProductInfoRepository _productInfoRepository;
 
-        public ProductFeaturesController(ILogger<ProductFeaturesController> logger) {
+        public ProductFeaturesController(ILogger<ProductFeaturesController> logger, IProductInfoRepository productInfoRespository) {
             _logger = logger;
+            _productInfoRepository = productInfoRespository;
         }
 
         [HttpGet("{productId}/productFeatures")]
         public IActionResult GetProductFeatures(int productId) {
             try {
                 // Find Parent Product
-                var product = ProductsDataStore.Current.Products.FirstOrDefault(p => p.Id == productId);
-
-                if(null == product) {
-                    //Uses interpolation
-                    _logger.LogInformation($"The product with ID {productId} was not found");
+                if(!_productInfoRepository.ProductExists(productId)) {
                     return NotFound();
                 }
 
-                return Ok(product.ProductFeatures);
+                var productFeatures = _productInfoRepository.GetProductFeatures(productId);
+
+                var productFeaturesResult = new List<ProductFeatureDto>();
+                
+                foreach(var feature in productFeatures)
+                {
+                    productFeaturesResult.Add(new ProductFeatureDto() {
+                        Id = feature.Id,
+                        Name = feature.Name,
+                        Description = feature.Description
+                    }); 
+                }
+
+                return Ok(productFeaturesResult);
             }
             catch(Exception) {
                 _logger.LogCritical($"Exception while getting features for {productId}");
@@ -42,19 +53,22 @@ namespace product_viewer.Controllers {
         [HttpGet("{productId}/productFeatures/{id}", Name = "GetProductFeature")]
         public IActionResult GetProductFeature(int productId, int id) {
              // Find Parent Product
-            var product = ProductsDataStore.Current.Products.FirstOrDefault(p => p.Id == productId);
+            // Find Parent Product
+                if(!_productInfoRepository.ProductExists(productId)) {
+                    return NotFound();
+                }
 
-            if(null == product) {
-                return NotFound();
-            }
+                var feature = _productInfoRepository.GetProductFeature(productId, id);
 
-            var feature = product.ProductFeatures.FirstOrDefault(f => f.Id == id);
+                if(null == feature) {
+                    return NotFound();
+                }
 
-            if(null == feature) {
-                return NotFound();
-            }
-
-            return Ok(feature);
+                return Ok(new ProductFeatureDto() {
+                        Id = feature.Id,
+                        Name = feature.Name,
+                        Description = feature.Description
+                    }); 
         }
 
         [HttpPost("{productId}/productFeatures")]

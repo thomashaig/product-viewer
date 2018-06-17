@@ -10,6 +10,9 @@ using product_viewer.Entities;
 
 namespace product_viewer.Services {
     public interface IProductInfoRepository {
+
+        bool ProductExists(int productId);
+
         IEnumerable<Product> GetProducts();
 
         Product GetProduct(int productId, bool includeFeatures);
