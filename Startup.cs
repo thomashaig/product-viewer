@@ -13,6 +13,8 @@ using Newtonsoft.Json.Serialization;
 using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.Extensions.Logging;
 using product_viewer.Services;
+using product_viewer.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace product_viewer
 {
@@ -45,10 +47,13 @@ namespace product_viewer
             #else
                 services.AddTransient<IMailService, CloudMailService>();
             #endif
+
+            var connectionString = @"Server=localhost\SQLEXPRESS01;Database=ProductInfoDb;Trusted_Connection=True;";
+            services.AddDbContext<ProductInfoContext>(o => o.UseSqlServer(connectionString));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, ProductInfoContext productInfoContext)
         {
             loggerFactory.AddConsole();
             loggerFactory.AddDebug();
@@ -68,6 +73,8 @@ namespace product_viewer
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
+
+            productInfoContext.EnsureSeedDataForContext();
 
             app.UseMvc(routes =>
             {

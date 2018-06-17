@@ -15,9 +15,8 @@ namespace product_viewer.Controllers {
         private ILogger<ProductFeaturesController> _logger;
         private IMailService _mailService;
 
-        public ProductFeaturesController(ILogger<ProductFeaturesController> logger, LocalMailService mailService) {
+        public ProductFeaturesController(ILogger<ProductFeaturesController> logger) {
             _logger = logger;
-            _mailService = mailService;
         }
 
         [HttpGet("{productId}/productFeatures")]
@@ -175,8 +174,6 @@ namespace product_viewer.Controllers {
             }
 
             product.ProductFeatures.Remove(productFeatureToDelete);
-
-            _mailService.Send("Deleted", "It was deleted");
 
             return NoContent();
         }
