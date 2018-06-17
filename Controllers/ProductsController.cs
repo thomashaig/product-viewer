@@ -41,7 +41,7 @@ namespace product_viewer.Controllers {
             var product = _productInfoRepository.GetProduct(id, includeFeatures);
 
             if(null == product) {
-                retunr NotFound();
+                return NotFound();
             }
 
             if(includeFeatures) {
@@ -49,7 +49,7 @@ namespace product_viewer.Controllers {
                     Id = product.Id,
                     Name = product.Name,
                     Description = product.Description
-                }
+                };
 
                 foreach(var feature in product.ProductFeatures) {
                     productResult.ProductFeatures.Add(
@@ -68,7 +68,7 @@ namespace product_viewer.Controllers {
                 Id = product.Id,
                 Name = product.Name,
                 Description = product.Description
-            } 
+            }; 
 
             return Ok(productNoFeatures);
         }
