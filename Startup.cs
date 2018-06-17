@@ -53,7 +53,7 @@ namespace product_viewer
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, ProductInfoContext productInfoContext)
         {
             loggerFactory.AddConsole();
             loggerFactory.AddDebug();
@@ -73,6 +73,8 @@ namespace product_viewer
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
+
+            productInfoContext.EnsureSeedDataForContext();
 
             app.UseMvc(routes =>
             {

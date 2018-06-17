@@ -11,7 +11,6 @@ namespace product_viewer.Entities {
 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-
         public int Id { get; set; }
 
         [Required]
@@ -22,9 +21,7 @@ namespace product_viewer.Entities {
         public string Description { get; set; }
 
         [ForeignKey("ProductId")]
-
         public Product Product { get; set; }
-
         public int ProductId { get; set; }
     }
 } 
