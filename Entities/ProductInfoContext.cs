@@ -11,7 +11,7 @@ namespace product_viewer.Entities {
         public ProductInfoContext(DbContextOptions<ProductInfoContext> options)
            : base(options)
         {
-            Database.EnsureCreated();
+            Database.Migrate();
         }
 
         public DbSet<Product> Products { get; set; }
