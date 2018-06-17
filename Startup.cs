@@ -50,6 +50,8 @@ namespace product_viewer
 
             var connectionString = @"Server=localhost\SQLEXPRESS01;Database=ProductInfoDb;Trusted_Connection=True;";
             services.AddDbContext<ProductInfoContext>(o => o.UseSqlServer(connectionString));
+
+            services.AddScoped<IProductInfoRepository, ProductInfoRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
