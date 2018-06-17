@@ -13,7 +13,8 @@ namespace product_viewer.Controllers {
 
         private IProductInfoRepository _productInfoRepository;
 
-        public ProductsController(ProductInfoRepository productInfoRepository) {
+        //Still takes in interface, not a concrete class
+        public ProductsController(IProductInfoRepository productInfoRepository) {
             _productInfoRepository = productInfoRepository;
         }
 
@@ -33,20 +34,35 @@ namespace product_viewer.Controllers {
             }
 
             return Ok(results);
-            //return Ok(ProductsDataStore.Current.Products);
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetProduct(int id) {
-
-            // Find Product
-            var product = ProductsDataStore.Current.Products.FirstOrDefault(p => p.Id == id);
+        public IActionResult GetProduct(int id, bool includeFeatures = false) {
+            var product = _productInfoRepository.GetProduct(id, includeFeatures);
 
             if(null == product) {
-                return NotFound();
+                retunr NotFound();
             }
 
-            return Ok(product);
+            if(includeFeatures) {
+                var productResult = new ProductDto() {
+                    Id = product.Id,
+                    Name = product.Name,
+                    Description = product.Description
+                }
+
+                foreach(var feature in product.ProductFeatures) {
+                    productResult.ProductFeatures.Add(
+                        new ProductFeatureDto() {
+                            Id = feature.Id,
+                            Name = feature.Name,
+                            Description = feature.Description
+                        }
+                    );
+                }
+
+                return Ok(productResult);
+            }
         }
     }
 }
