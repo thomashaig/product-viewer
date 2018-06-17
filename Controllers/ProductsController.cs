@@ -63,6 +63,14 @@ namespace product_viewer.Controllers {
 
                 return Ok(productResult);
             }
+
+            var productNoFeatures = new ProductNoFeaturesDto() {
+                Id = product.Id,
+                Name = product.Name,
+                Description = product.Description
+            } 
+
+            return Ok(productNoFeatures);
         }
     }
 }
