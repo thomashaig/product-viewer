@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using product_viewer.Services;
 using product_viewer.Models;
+using AutoMapper;
 
 
 namespace product_viewer.Controllers {
@@ -22,16 +23,7 @@ namespace product_viewer.Controllers {
         public IActionResult GetProducts() {
             var productEntities = _productInfoRepository.GetProducts();
 
-            var results = new List<ProductNoFeaturesDto>();
-
-            foreach(var productEntity in productEntities) 
-            {
-                results.Add(new ProductNoFeaturesDto{
-                    Id = productEntity.Id,
-                    Name = productEntity.Name,
-                    Description = productEntity.Description
-                });
-            }
+            var results = Mapper.Map<IEnumerable<ProductNoFeaturesDto>>(productEntities);
 
             return Ok(results);
         }
@@ -45,30 +37,12 @@ namespace product_viewer.Controllers {
             }
 
             if(includeFeatures) {
-                var productResult = new ProductDto() {
-                    Id = product.Id,
-                    Name = product.Name,
-                    Description = product.Description
-                };
-
-                foreach(var feature in product.ProductFeatures) {
-                    productResult.ProductFeatures.Add(
-                        new ProductFeatureDto() {
-                            Id = feature.Id,
-                            Name = feature.Name,
-                            Description = feature.Description
-                        }
-                    );
-                }
+                var productResult = Mapper.Map<ProductDto>(product);
 
                 return Ok(productResult);
             }
 
-            var productNoFeatures = new ProductNoFeaturesDto() {
-                Id = product.Id,
-                Name = product.Name,
-                Description = product.Description
-            }; 
+            var productNoFeatures = Mapper.Map<ProductNoFeaturesDto>(product);
 
             return Ok(productNoFeatures);
         }

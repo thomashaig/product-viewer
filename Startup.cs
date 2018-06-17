@@ -78,6 +78,11 @@ namespace product_viewer
 
             productInfoContext.EnsureSeedDataForContext();
 
+            AutoMapper.Mapper.Initialize(cfg => {
+                cfg.CreateMap<Entities.Product, Models.ProductNoFeaturesDto>();
+                cfg.CreateMap<Entities.Product, Models.ProductDto>();
+            });
+
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
