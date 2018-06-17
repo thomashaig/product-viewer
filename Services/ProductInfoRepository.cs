@@ -40,5 +40,15 @@ namespace product_viewer.Services {
         public ProductFeature GetProductFeature(int productId, int featureId) {
             return _context.ProductFeatures.Where(p => p.ProductId == productId && p.Id == featureId).FirstOrDefault();
         }
+
+        public void AddFeatureForProduct(int productId, ProductFeature productFeature) {
+            var product = GetProduct(productId, false);
+
+            product.ProductFeatures.Add(productFeature);
+        }
+
+        public bool Save() {
+            return (_context.SaveChanges() >= 0);
+        }
     }
 }

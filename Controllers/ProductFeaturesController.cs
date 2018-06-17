@@ -7,6 +7,7 @@ using product_viewer.Models;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.Extensions.Logging;
 using product_viewer.Services;
+using product_viewer.Entities;
 using AutoMapper;
 
 namespace product_viewer.Controllers {
@@ -70,25 +71,22 @@ namespace product_viewer.Controllers {
 
             if(!ModelState.IsValid) return BadRequest(ModelState);
 
-            var product = ProductsDataStore.Current.Products.FirstOrDefault(p => p.Id == productId);
-
-            if(null == product) {
+            if(!_productInfoRepository.ProductExists(productId)) {
                 return NotFound();
             }
 
-            //This is for demo (imporved later in tutorial)
-            var topProductFeatureId = ProductsDataStore.Current.Products.SelectMany(p => p.ProductFeatures).Max(c => c.Id);
+            var newProductFeature = Mapper.Map<Entities.ProductFeature>(productFeature);
 
-            var newProductFeature = new ProductFeatureDto() {
-                Id = ++topProductFeatureId,
-                Name = productFeature.Name,
-                Description = productFeature.Description
-            };
+            _productInfoRepository.AddFeatureForProduct(productId, newProductFeature);
 
-            product.ProductFeatures.Add(newProductFeature);
+            if(!_productInfoRepository.Save()) {
+                return StatusCode(500, "Failed to save");
+            }
+
+            var newProductFeatureReturn = Mapper.Map<Models.ProductFeatureDto>(newProductFeature);
 
             //Note the returned productId is the same as the one that was passed in
-            return CreatedAtRoute("GetProductFeature", new { productid = productId, id = newProductFeature.Id}, newProductFeature);
+            return CreatedAtRoute("GetProductFeature", new { productid = productId, id = newProductFeature.Id}, newProductFeatureReturn);
         }
 
         [HttpPut("{productId}/productFeatures/{id}")]

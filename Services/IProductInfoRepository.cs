@@ -20,5 +20,9 @@ namespace product_viewer.Services {
         IEnumerable<ProductFeature> GetProductFeatures(int productId);
 
         ProductFeature GetProductFeature(int productId, int featureId);
+
+        void AddFeatureForProduct(int productId, ProductFeature productFeature);
+
+        bool Save();
     }
 }
