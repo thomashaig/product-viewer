@@ -91,6 +91,7 @@ namespace product_viewer.Controllers {
 
         [HttpPut("{productId}/productFeatures/{id}")]
         public IActionResult UpdateProductFeature(int productId, int id, [FromBody] ProductFeatureForUpdateDto productFeature) {
+
             if(null == productFeature) return BadRequest();
 
             //Description and name can not be the same (for some reason)
@@ -100,16 +101,22 @@ namespace product_viewer.Controllers {
 
             if(!ModelState.IsValid) return BadRequest(ModelState);
 
-            if(!_productInfoRepository.ProductExists()) {
+            if(!_productInfoRepository.ProductExists(productId)) {
                 return NotFound();
             }
 
             var productFeatureToPut = _productInfoRepository.GetProductFeature(productId, id);
 
+
             if(null == productFeatureToPut) return NotFound();
 
-            productFeatureToPut.Name = productFeature.Name;
-            productFeatureToPut.Description = productFeature.Description;
+            Mapper.Map(productFeature, productFeatureToPut);
+
+            
+            if (!_productInfoRepository.Save())
+            {
+                return StatusCode(500, "A problem happened while handling your request.");
+            }
 
             return NoContent();
         }
