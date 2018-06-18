@@ -47,6 +47,10 @@ namespace product_viewer.Services {
             product.ProductFeatures.Add(productFeature);
         }
 
+        public void DeleteFeature(ProductFeature feature) {
+            _context.ProductFeatures.Remove(feature);
+        }
+
         public bool Save() {
             return (_context.SaveChanges() >= 0);
         }

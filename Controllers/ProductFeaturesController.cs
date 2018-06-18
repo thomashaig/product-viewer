@@ -162,16 +162,22 @@ namespace product_viewer.Controllers {
         [HttpDelete("{productId}/productFeatures/{id}")]
         public IActionResult DeleteProductFeature(int productId, int id) {
             if(!_productInfoRepository.ProductExists(productId)) {
-                
+                return NotFound();
             }
 
-            var productFeatureToDelete = product.ProductFeatures.FirstOrDefault(f => f.Id == id);
+            var productFeatureToDelete = _productInfoRepository.GetProductFeature(productId, id);
 
             if(null == productFeatureToDelete) {
                 return NotFound();
             }
 
-            product.ProductFeatures.Remove(productFeatureToDelete);
+            _productInfoRepository.DeleteFeature(productFeatureToDelete);
+
+
+            if (!_productInfoRepository.Save())
+            {
+                return StatusCode(500, "A problem happened while handling your request.");
+            }
 
             return NoContent();
         }

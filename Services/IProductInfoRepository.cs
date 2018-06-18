@@ -23,6 +23,8 @@ namespace product_viewer.Services {
 
         void AddFeatureForProduct(int productId, ProductFeature productFeature);
 
+        void DeleteFeature(ProductFeature feature);
+
         bool Save();
     }
 }
