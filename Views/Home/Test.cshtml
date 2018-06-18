@@ -12,6 +12,12 @@
             el: '#app',
             data: {
                 message: 'Hello Vue!'
+            },
+            mounted() {
+                console.log("Hey mountie");
+                axios
+                    .get('/api/products')
+                    .then(response => (console.log(response.data)))
             }
         })
     </script>
