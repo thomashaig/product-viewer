@@ -84,6 +84,7 @@ namespace product_viewer
                 cfg.CreateMap<Entities.ProductFeature, Models.ProductFeatureDto>();
                 cfg.CreateMap<Models.ProductFeatureForCreationDto, Entities.ProductFeature>();
                 cfg.CreateMap<Models.ProductFeatureForUpdateDto, Entities.ProductFeature>();
+                cfg.CreateMap<Entities.ProductFeature, Models.ProductFeatureForUpdateDto>();
             });
 
             app.UseMvc(routes =>

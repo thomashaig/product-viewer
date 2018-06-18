@@ -125,23 +125,16 @@ namespace product_viewer.Controllers {
         public IActionResult PartialUpdateProductFeature(int productId, int id, [FromBody] JsonPatchDocument<ProductFeatureForUpdateDto> patchDoc) {
             if(null == patchDoc) return BadRequest();
 
-            var product = ProductsDataStore.Current.Products.FirstOrDefault(p => p.Id == productId);
-
-            if(null == product) {
+            if(!_productInfoRepository.ProductExists(productId)) {
                 return NotFound();
             }
 
-            var productFeatureToPatch = product.ProductFeatures.FirstOrDefault(f => f.Id == id);
+            var productFeatureEntity = _productInfoRepository.GetProductFeature(productId, id);
 
-            if(null == productFeatureToPatch) {
-                return NotFound();
-            }
+            if(null == productFeatureEntity) return NotFound();
 
-            var productFeaturePatch = new ProductFeatureForUpdateDto() {
-                Name = productFeatureToPatch.Name,
-                Description = productFeatureToPatch.Description
-            };
-
+            var productFeaturePatch = Mapper.Map<ProductFeatureForUpdateDto>(productFeatureEntity);
+        
             patchDoc.ApplyTo(productFeaturePatch, ModelState);
 
             if(!ModelState.IsValid) return BadRequest(ModelState);
@@ -156,18 +149,20 @@ namespace product_viewer.Controllers {
 
             if(!ModelState.IsValid) return BadRequest(ModelState);
 
-            productFeatureToPatch.Name = productFeaturePatch.Name;
-            productFeatureToPatch.Description = productFeaturePatch.Description;
+            Mapper.Map(productFeaturePatch, productFeatureEntity);
+
+            if (!_productInfoRepository.Save())
+            {
+                return StatusCode(500, "A problem happened while handling your request.");
+            }
 
             return NoContent();
         }
 
         [HttpDelete("{productId}/productFeatures/{id}")]
         public IActionResult DeleteProductFeature(int productId, int id) {
-            var product = ProductsDataStore.Current.Products.FirstOrDefault(p => p.Id == productId);
-
-            if(null == product) {
-                return NotFound();
+            if(!_productInfoRepository.ProductExists(productId)) {
+                
             }
 
             var productFeatureToDelete = product.ProductFeatures.FirstOrDefault(f => f.Id == id);
