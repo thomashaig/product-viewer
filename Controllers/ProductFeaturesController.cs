@@ -100,17 +100,13 @@ namespace product_viewer.Controllers {
 
             if(!ModelState.IsValid) return BadRequest(ModelState);
 
-            var product = ProductsDataStore.Current.Products.FirstOrDefault(p => p.Id == productId);
-
-            if(null == product) {
+            if(!_productInfoRepository.ProductExists()) {
                 return NotFound();
             }
 
-            var productFeatureToPut = product.ProductFeatures.FirstOrDefault(f => f.Id == id);
+            var productFeatureToPut = _productInfoRepository.GetProductFeature(productId, id);
 
-            if(null == productFeature) {
-                return NotFound();
-            }
+            if(null == productFeatureToPut) return NotFound();
 
             productFeatureToPut.Name = productFeature.Name;
             productFeatureToPut.Description = productFeature.Description;
