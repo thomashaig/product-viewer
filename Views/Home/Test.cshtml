@@ -9,8 +9,6 @@
     <!-- use router-link component for navigation. -->
     <!-- specify the link by passing the `to` prop. -->
     <!-- `<router-link>` will be rendered as an `<a>` tag by default -->
-    <router-link to="/foo">Go to Foo</router-link>
-    <router-link to="/bar">Go to Bar</router-link>
   </p>
   <router-view></router-view>
   </div>
@@ -42,11 +40,22 @@
         }
 const Bar = { 
     props: ['id'],
-    template: `<div>{{id}}</div>`,
+    data : function() {
+                return { product: null, loading: true }
+            },
+    template: `<div><router-link to="/">Back to list</router-link><div class="loading" v-if="loading">Loading
+                    </div><div v-if="product">{{product.name}}</div></div>`,
      mounted() {
             var self = this
             console.log("WHAT WAS ID");
             console.log(self.id);
+            axios
+                    .get('/api/products/' + self.id + '?includeFeatures=true')
+                    .then(response => {
+                        self.product = response.data
+                        self.loading = false
+                    }
+                    )
     }
 }
 
