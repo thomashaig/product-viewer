@@ -28,6 +28,29 @@ body {
     margin: 15px;
 }
 
+.non-hover-link:hover {
+    text-decoration: none;
+  }
+  
+  .product-list .product-row {
+    color: #333;
+  }
+  .product-list .product-row .product-card .card-title, .product-list .product-row .product-card .card-text {
+    color: #333;
+  }
+  .product-list .product-row .product-card:hover {
+    background: #eee;
+  }
+  .product-list .product-row .product-card a {
+    text-decoration: none;
+  }
+  .product-list .product-row .product-card a:hover {
+    text-decoration: none;
+  }
+  .product-list .product-row:not(:first-child) {
+    padding-top: 2em;
+  }
+
 /* Hide/rearrange for smaller screens */
 @media screen and (max-width: 767px) {
     /* Hide captions */
