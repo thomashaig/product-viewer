@@ -55,7 +55,7 @@ const Bar = {
     data : 
     function() 
     {
-        return { product: null, loading: true }
+        return { product: null, loading: true, addingFeature: false, newName: null, newDescription: null }
     },
     template: 
     `<div>
@@ -73,6 +73,11 @@ const Bar = {
                 </div>
             </div>
         </div>
+        <div v-on:click="addFeature()" v-if="!addingFeature">Add Feature</div>
+        <div v-else>
+            <input v-model="newName" placeholder="edit me">
+        <input v-model="newDescription" placeholder="edit me">
+        <button v-on:click="submitFeature()">Submit</button></div>
         <router-link to="/">Back to product list</router-link>
     </div>`,
      mounted() {
@@ -95,6 +100,20 @@ const Bar = {
                 console.log("THE RESPONSE");
                 console.log(response);
             })
+        },
+        addFeature: function() {
+            this.addingFeature = true;
+        },
+        submitFeature: function() {
+            var self = this;
+axios.post('/api/products/' + this.id + '/productFeatures', {
+    "name":self.newName,
+    "description":self.newDescription
+}).then(response => {
+    self.addingFeature = false;
+    self.product.productFeatures.push(response.data);
+    console.log(response);
+});
         }
     }
 }
