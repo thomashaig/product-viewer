@@ -19,11 +19,25 @@
 @section Scripts {
     <script>
         const Foo = {
-            props: ['products'], 
+            data : function() {
+                return { products: null }
+            },
             template:
-            `<div><div v-for="product in products">
+            `<div>
+                <div class="loading" v-if="loading">Loading
+                    </div><div v-if="products" v-for="product in products">
         <span>{{product.name}}</span>
     </div></div>`,
+    mounted() {
+var self = this
+                axios
+                    .get('/api/products')
+                    .then(response => {
+                        console.log("YEAH");
+                        self.products = response.data
+                    }
+                    )
+    },
     watch: {
     '$route' (to, from) {
       // react to route changes...
