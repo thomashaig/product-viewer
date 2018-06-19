@@ -3,29 +3,92 @@
 }
 
 <div id="app">
-    <div v-for="product in products">
-        <span>{{product.name}}</span>
-    </div>
+    <div>
+    <h1>Hello App!</h1>
+  <p>
+    <!-- use router-link component for navigation. -->
+    <!-- specify the link by passing the `to` prop. -->
+    <!-- `<router-link>` will be rendered as an `<a>` tag by default -->
+    <router-link to="/foo">Go to Foo</router-link>
+    <router-link to="/bar">Go to Bar</router-link>
+  </p>
+  <router-view></router-view>
+  </div>
 </div>
 
 @section Scripts {
     <script>
+        const Foo = {
+            props: ['products'], 
+            template:
+            `<div><div v-for="product in products">
+        <span>{{product.name}}</span>
+    </div></div>`,
+    watch: {
+    '$route' (to, from) {
+      // react to route changes...
+      console.log("CAN I GET A CHANGE HERE!!")
+    }
+  },
+             beforeRouteUpdate (to, from, next) {
+                 console.log("THIS IS HAPPENING")
+                // react to route changes...
+                // don't forget to call next()
+                
+            }
+        }
+const Bar = { template: '<div>bar</div>' }
+
+const routes = [
+  { path: '/foo', component: Foo, props: dynamicPropsFn},
+  { path: '/bar', component: Bar }
+]
+
+async function dynamicPropsFn (route) {
+    //return {products : [{"id":1,"name":"Product 1","description":"Our first and best product"},{"id":2,"name":"Product 2","description":"The second fiddle"}]};
+  var data = axios
+                    .get('/api/products');
+
+console.log("THIS!!");
+
+                    var test = data.then(response => {
+                        console.log("YEAH");
+                        return response.data
+                    }
+                    )
+                    console.log("Now I have data");
+                    console.log(Promise.resolve(test));
+}
+
+const router = new VueRouter({
+  routes // short for `routes: routes`
+})
+
         var app = new Vue({
+            router,
             el: '#app',
-            data: {
-                products: [],
-            },
+            data: function() {
+         return  {
+           products: []
+         }
+    },
             mounted() {
                 console.log("Hey mountie")
                 var self = this
                 axios
                     .get('/api/products')
-                    .then(response => 
-                            (
-                                self.products = response.data
-                            )
+                    .then(response => {
+                        console.log("YEAH");
+                        self.products = response.data
+                    }
                     )
-            }
+
+            },
+            beforeRouteUpdate (to, from, next) {
+                console.log("MAYBE THIS ONE IS CALLED")
+    // react to route changes...
+    // don't forget to call next()
+  }
         })
     </script>
 }
