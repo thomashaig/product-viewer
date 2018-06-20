@@ -73,6 +73,7 @@ const Bar = {
                             <div class="card-body">
                                 <h5 class="card-title">{{feature.name}}</h5>
                                 <p class="card-text">{{feature.description}}</p>
+                                <button v-on:click="deleteFeature(feature.id)">Delete</button>
                             </div>
                         </div>
                     </div>
@@ -114,9 +115,15 @@ const Bar = {
         deleteFeature: function(feature_id) {
             console.log("DELETING FEATURE")
             console.log(this.id)
+            var self = this;
             axios.delete('/api/products/' + this.id + '/productFeatures/' + feature_id).then(response => {
                 console.log("THE RESPONSE");
                 console.log(response);
+                _.remove(self.product.productFeatures, function(pf) {
+                    return pf.id == feature_id;
+                });
+                self.product.productFeatures.splice(1,1);
+                console.log(self.product.productFeatures);
             })
         },
         addFeature: function() {
