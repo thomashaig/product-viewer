@@ -94,7 +94,19 @@ const Bar = {
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+            <div class="row product-row" v-else>
+                <div class="col-sm-4">
+                    <div class="card w-100 product-card">
+                        <img class="card-img-top" src="https://picsum.photos/200/100/?random" alt="Card image cap">
+                        <div class="card-body">
+                            <h5 class="card-title">Name: <input v-model="newName" placeholder="edit me"></h5>
+                            <p class="card-text" click="addFeature()">Description: <input v-model="newDescription" placeholder="edit me"></p>
+                            <button v-on:click="submitFeature()">Submit</button>
+                        </div>
                     </div>
+                </div>
             </div>
         </div>
         <router-link to="/">Back to product list</router-link>
