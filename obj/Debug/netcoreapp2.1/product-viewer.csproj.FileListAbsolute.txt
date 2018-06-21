@@ -30,3 +30,4 @@ C:\Users\Thomas\Desktop\Stuff\Products\product-viewer\obj\Debug\netcoreapp2.1\pr
 C:\Users\Thomas\Desktop\Stuff\Products\product-viewer\obj\Debug\netcoreapp2.1\product-viewer.RazorTargetAssemblyInfo.cs
 C:\Users\Thomas\Desktop\Stuff\Products\product-viewer\obj\Debug\netcoreapp2.1\product-viewer.Views.pdb
 C:\Users\Thomas\Desktop\Stuff\Products\product-viewer\obj\Debug\netcoreapp2.1\product-viewer.csproj.CopyComplete
+C:\Users\Thomas\Desktop\Stuff\Products\product-viewer\obj\Debug\netcoreapp2.1\Razor\Views\Home\Test.g.cshtml.cs
