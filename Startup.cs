@@ -91,13 +91,7 @@ namespace product_viewer
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
-                routes.MapRoute(
-                    name: "test",
                     template: "{controller=Home}/{action=Test}");
-                routes.MapRoute(
-                    name: "privacy",
-                    template: "{controller=Home}/{action=Privacy}");
             });
         }
     }
