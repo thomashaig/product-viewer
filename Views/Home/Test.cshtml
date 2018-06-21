@@ -88,9 +88,10 @@
                             <div class="card w-100 product-card" v-else>
                                 <img class="card-img-top" src="https://picsum.photos/200/100/?random" alt="Card image cap">
                                 <div class="card-body">
-                                    <h5 class="card-text">Name: <input v-model="newName" placeholder="Name""></h5>
+                                    <p class="card-text">Name: <input v-model="newName" placeholder="Name""></p>
                                     <p class="card-text" click="addFeature()">Description: <input v-model="newDescription" placeholder="Description"></p>
                                     <button class="btn btn-success" v-on:click="submitFeature()">Submit</button>
+                                    <button class="btn btn-danger" v-on:click="cancelFeature()">Cancel</button>
                                 </div>
                             </div>
                         </div>
@@ -108,9 +109,10 @@
                         <div class="card w-100 product-card" v-else>
                             <img class="card-img-top" src="https://picsum.photos/200/100/?random" alt="Card image cap">
                             <div class="card-body">
-                                <h5 class="card-text">Name: <input v-model="newName" placeholder="Name"></h5>
+                                <p class="card-text">Name: <input v-model="newName" placeholder="Name"></p>
                                 <p class="card-text" click="addFeature()">Description: <input v-model="newDescription" placeholder="Description"></p>
                                 <button class="btn btn-success" v-on:click="submitFeature()">Submit</button>
+                                <button class="btn btn-danger" v-on:click="cancelFeature()">Cancel</button>
                             </div>
                         </div>
                     </div>
@@ -152,6 +154,9 @@
                     self.addingFeature = false;
                     self.product.productFeatures.push(response.data);
                 });
+            },
+            cancelFeature: function() {
+                this.addingFeature = false;
             }
         }
     }
