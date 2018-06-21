@@ -73,7 +73,7 @@
                                 <div class="card-body">
                                     <h5 class="card-title">{{feature.name}}</h5>
                                     <p class="card-text">{{feature.description}}</p>
-                                    <button v-on:click="deleteFeature(feature.id)">Delete</button>
+                                    <button class="btn btn-danger" v-on:click="deleteFeature(feature.id)">Delete</button>
                                 </div>
                             </div>
                         </div>
@@ -82,15 +82,15 @@
                                 <img class="card-img-top" src="https://picsum.photos/200/100/?random" alt="Card image cap">
                                 <div class="card-body">
                                     <h5 class="card-title">Add A New Feature</h5>
-                                    <p class="card-text" v-on:click="addFeature()">Click Here</p>
+                                    <button class="btn btn-primary" v-on:click="addFeature()">Click Here</button>
                                 </div>
                             </div>
                             <div class="card w-100 product-card" v-else>
                                 <img class="card-img-top" src="https://picsum.photos/200/100/?random" alt="Card image cap">
                                 <div class="card-body">
-                                    <h5 class="card-title">Name: <input v-model="newName" placeholder="edit me"></h5>
-                                    <p class="card-text" click="addFeature()">Description: <input v-model="newDescription" placeholder="edit me"></p>
-                                    <button v-on:click="submitFeature()">Submit</button>
+                                    <h5 class="card-text">Name: <input v-model="newName" placeholder="Name""></h5>
+                                    <p class="card-text" click="addFeature()">Description: <input v-model="newDescription" placeholder="Description"></p>
+                                    <button class="btn btn-success" v-on:click="submitFeature()">Submit</button>
                                 </div>
                             </div>
                         </div>
@@ -102,15 +102,15 @@
                             <img class="card-img-top" src="https://picsum.photos/200/100/?random" alt="Card image cap">
                             <div class="card-body">
                                 <h5 class="card-title">Add A New Feature</h5>
-                                <p class="card-text" v-on:click="addFeature()">Click Here</p>
+                                <button class="btn btn-primary" v-on:click="addFeature()">Click Here</button>
                             </div>
                         </div>
                         <div class="card w-100 product-card" v-else>
                             <img class="card-img-top" src="https://picsum.photos/200/100/?random" alt="Card image cap">
                             <div class="card-body">
-                                <h5 class="card-title">Name: <input v-model="newName" placeholder="edit me"></h5>
-                                <p class="card-text" click="addFeature()">Description: <input v-model="newDescription" placeholder="edit me"></p>
-                                <button v-on:click="submitFeature()">Submit</button>
+                                <h5 class="card-text">Name: <input v-model="newName" placeholder="Name"></h5>
+                                <p class="card-text" click="addFeature()">Description: <input v-model="newDescription" placeholder="Description"></p>
+                                <button class="btn btn-success" v-on:click="submitFeature()">Submit</button>
                             </div>
                         </div>
                     </div>
