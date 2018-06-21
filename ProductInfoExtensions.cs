@@ -43,7 +43,7 @@ namespace product_viewer {
                             Description = "Actually can be used as a fiddle"
                         }
                     }
-                }
+                },
                 new Product { 
                     //Make sure you comment the ID's out!!!
                     Name="Product 3", 
