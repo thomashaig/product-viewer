@@ -44,6 +44,22 @@ namespace product_viewer {
                         }
                     }
                 }
+                new Product { 
+                    //Make sure you comment the ID's out!!!
+                    Name="Product 3", 
+                    Description="A third product"
+                },
+                new Product { 
+                    //Make sure you comment the ID's out!!!
+                    Name="Product 4", 
+                    Description="The forth product in the range",
+                    ProductFeatures = new List<ProductFeature>() {
+                        new ProductFeature() {
+                            Name = "Not many",
+                            Description = "Only has one feature"
+                        }
+                    }
+                }
             };
 
             context.Products.AddRange(products);
