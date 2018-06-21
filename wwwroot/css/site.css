@@ -31,38 +31,38 @@ for details on configuring this project to bundle and minify static web assets. 
 
 .non-hover-link:hover {
     text-decoration: none;
-  }
+}
   
-  .product-list .product-row {
+.product-list .product-row {
     color: #333;
-  }
-  .product-list .product-row .product-card .card-title, .product-list .product-row .product-card .card-text {
+}
+.product-list .product-row .product-card .card-title, .product-list .product-row .product-card .card-text {
     color: #333;
-  }
-  .product-list .product-row .product-card:hover {
+}
+.product-list .product-row .product-card:hover {
     background: #eee;
-  }
-  .product-list .product-row .product-card a {
+}
+.product-list .product-row .product-card a {
     text-decoration: none;
-  }
-  .product-list .product-row .product-card a:hover {
+}
+.product-list .product-row .product-card a:hover {
     text-decoration: none;
-  }
-  .product-list .product-row:not(:first-child) {
+}
+.product-list .product-row:not(:first-child) {
     padding-top: 2em;
-  }
+}
 
-  .card input {
-      width: 100%;
-  }
+.card input {
+    width: 100%;
+}
 
-  .footer-links {
+.footer-links {
     margin-top: 10px;
-  }
+}
 
-  .brand-name {
-      padding-left: 10px;
-  }
+.brand-name {
+    padding-left: 10px;
+}
 
 /* Hide/rearrange for smaller screens */
 @media screen and (max-width: 767px) {
