@@ -2,6 +2,16 @@
 
 This project is to demonstrate the learning of .NET Core and use it for a product database view. Initially, the project will be following the project "Building your first .NET Core API tutorial from Pluralsight, before branching and creating the project itself as well as a Vue templated front end.
 
+## Installation and run
+
+Code was build using Visual Studio Code wist MSSQL Server. The database install is local and will be built in the migration file, along with seeding the products. The migration will not be re-run once the database is built.
+
+To begin on command line use dotnet run
+
+The page main page can be viewed at localhost:5001
+
+In Visual Studio the program should be able to run using the standard "Play" button.
+
 ## A description of the project
 
 I was able to follow the .NET Core tutorial full after setting up my own local instance of SQLServer. Also using Visual Studio Code instead of Visual Studio I was able to learn more of the dotnet command line tools, which I feel are useful.
